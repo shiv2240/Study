@@ -1,0 +1,18 @@
+{
+  "name": "devtinder-be",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "Shiv Sahni",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "tinder for devs",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
