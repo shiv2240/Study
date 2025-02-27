@@ -1,44 +1,34 @@
 const express = require("express");
-
-
+const connectDB = require("./config/database");
 const app = express();
+const User = require("./models/user")
 
 
-app.get("/",(req,res)=>{
-    res.send("Homepage");
-});
-
-app.get("/user/:userId/:password",(req,res)=>{
-    console.log(req.params)
-    res.send([{
-        firstName:"Shiv",
-        lastName:"Sahni"
-    },{
-        firstName:"Shubham",
-        lastName:"Kumar"
-    }])
+app.post("/signup",async (req,res)=>{
+  const user = new User({
+    firstName : "Virat",
+    lastName : "Kohli",
+    emailID : "svirat1254@gmail.com",
+    password : "xyz1"
+  })
+  try{
+    await user.save()
+  res.send("User added successfully")
+  }catch(err){
+    res.status(400).send("Error"+ err.messgae)
+  }
 })
 
-app.get("/ab?c",(req,res)=>{
-    res.send("You are on ab and ac")
-})
 
-app.post("/user",(req,res)=>{
-    res.send("Data Saved Successfully")
-})
-
-app.delete("/user",(req,res)=>{
-    res.send("Data deleted successfully")
-})
-
-app.get("/hello",(req,res)=>{
-    res.send("Hello AEEEE haalo!");
-});
+connectDB()
+  .then(() => {
+    console.log("Database connectuon established");
+    app.listen(2000, () => {
+        console.log("Successfull server working");
+      });
+  })
+  .catch((err) => {
+    console.error("Database cannot conneted");
+  });
 
 
-app.get("/test",(req,res)=>{
-    res.send("Hello from server!");
-});
-app.listen(2000, ()=>{
-    console.log("Successfull server working");
-});
