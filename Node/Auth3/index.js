@@ -6,6 +6,17 @@ const app = express();
 
 app.use(express.json());
 
+const AuthMiddleware = (req,res,next)=>{
+    const { token } = req.query;
+  jwt.verify(token, "mykey", function (err, decoded) {
+    if (err) {
+      res.send("pleae lofin first");
+    } else {
+      next();
+    }
+  });
+}
+
 app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -38,16 +49,10 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ message: "Please try again later" });
   }
 });
+app.use(AuthMiddleware)
 
-app.get("/protected-endpoint", (req, res) => {
-  const { token } = req.query;
-  jwt.verify(token, "mykey", function (err, decoded) {
-    if (err) {
-      res.send("pleae lofin first");
-    } else {
-      res.send("protected data");
-    }
-  });
+app.get("/protected-endpoint",AuthMiddleware, (req, res) => {
+    res.send("Protected data......");
 });
 
 app.listen(8080, async () => {
