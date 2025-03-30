@@ -13,7 +13,7 @@ const ToDo = () => {
 
   function handleAdd() {
     axios
-      .post("http://localhost:2012/todos/add", {
+      .post("https://todo-73wc.onrender.com/todos/add", {
         task: name,
         status: "pending",
         createAt: Date.now,
