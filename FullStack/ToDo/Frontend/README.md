@@ -1,12 +1,66 @@
-# React + Vite
+# ToDo App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
+This is the frontend for a ToDo application built using React and Vite. It provides a user-friendly interface to manage tasks with CRUD operations, interacting with a backend API for data persistence.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
+[Click here to view the deployed app](https://todo-v1-p1.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tech Stack
+- React (Vite)
+- CSS
+- JavaScript
 
-## Expanding the ESLint configuration
+## 📂 Project Structure
+```
+📦Frontend
+┣ 📂public
+┃ ┗ 📜vite.svg
+┣ 📂src
+┃ ┣ 📂assets
+┃ ┃ ┗ 📜react.svg
+┃ ┣ 📂components
+┃ ┃ ┗ 📜ToDo.jsx
+┃ ┣ 📜App.css
+┃ ┣ 📜App.jsx
+┃ ┣ 📜index.css
+┃ ┗ 📜main.jsx
+┣ 📜.gitignore
+┣ 📜eslint.config.js
+┣ 📜index.html
+┣ 📜package-lock.json
+┣ 📜package.json
+┣ 📜README.md
+┗ 📜vite.config.js
+```
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+- Add new tasks
+- Update existing tasks
+- Delete tasks
+- View all tasks
+
+## 📦 Installation & Setup
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/shiv2240/Study/tree/main/FullStack/ToDo/Frontend
+   cd frontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+## 🔗 Backend Integration
+This frontend connects to a backend API to perform CRUD operations. Ensure the backend is running before using the app.
+
+## 🤝 Contributing
+Feel free to submit issues or pull requests to improve the project.
+
+## 📜 License
+This project is open-source and available under the MIT License.
+
