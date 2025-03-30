@@ -40,7 +40,7 @@ This is the backend for the ToDo application, built using Node.js and Express. I
 ## 📦 Installation & Setup
 1. Clone the repository:
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/shiv2240/Study/tree/main/FullStack/ToDo/Backend
    cd backend
    ```
 2. Install dependencies:
