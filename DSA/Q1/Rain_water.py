@@ -16,5 +16,5 @@ def solve(N,arr):
         rMax=arr[r]
       else:
         res+=rMax-arr[r]
-      r-=1
+      r-=1  
   print(res)
