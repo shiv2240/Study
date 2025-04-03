@@ -1,3 +1,6 @@
+# Swastika & Sum
+
+
 def solve(n, m, matrix):
   midr=(n-1)//2
   midc=(m-1)//2
