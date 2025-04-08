@@ -18,4 +18,32 @@ def solve(n,heights):
 
       stack.append(i)
 
-    print( max_area )
+    print(max_area)
+
+# OR
+
+def solve(N, arr):
+  maxArea = 0
+  stack = []
+  for i in range(N):
+    while stack and arr[i] < arr[stack[-1]]:
+      top = stack.pop()
+      height = arr[top]
+      if not stack:
+        width = i
+      else:
+        width = i - stack[-1] - 1
+      maxArea = max(maxArea, height * width)
+    stack.append(i)
+  while stack:
+    top = stack.pop()
+    height = arr[top]
+    if not stack:
+      width = N
+    else:
+      width = N - stack[-1] - 1
+  maxArea = max(maxArea, height * width)
+  print(maxArea)
+
+
+  
