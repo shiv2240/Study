@@ -9,7 +9,7 @@ module.exports.addRecipe = async (req, res) => {
       ingredients,
       instructions,
       author,
-      views,
+      views,    
       createdAt,
     } = req.body;
 
