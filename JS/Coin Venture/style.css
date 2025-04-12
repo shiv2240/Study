@@ -1,0 +1,109 @@
+@import url('https://fonts.cdnfonts.com/css/nexa-bold');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nexa', sans-serif;
+
+}
+/* Nav */
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 70px;
+    height: 80px;
+}
+.menu{
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content:space-between;
+    font-weight: 700px;
+}
+.menu-items{
+    margin: 25px 30px;
+    display:flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+.icons{
+    color:black;
+    margin-left:7px;
+    margin-bottom:3px;
+    font-size: 16px;
+}
+
+.signup{
+    background-color: transparent;
+    border:none;
+    background-color:rgb(175, 230, 14);
+    margin-right:5px;
+    margin-left:5px;
+    padding: 13px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    
+}
+.img-logo{
+    width:225px;
+    height:80px;
+}
+/* center-background */
+
+.box-layout {
+    border:none;
+    height: 75px;
+    width: 75px;
+    border:1px solid rgb(219, 223, 234);
+    transition: background-color 1s ease-in-out, color 2s ease-in-out;
+}
+.box-container{
+    position: relative;
+    display: grid;
+    border-radius: 25px;
+    overflow: hidden;
+    grid-template-columns: repeat(21, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    background: linear-gradient(180deg, rgba(225, 233, 254, .8), rgba(225, 233, 254, 0));
+}
+/* center-text */
+
+.box-layout:hover {
+    cursor: pointer;
+    background-color: #d8d8d8d7;
+    transition: background-color 0.09s ease-in, color 0.1s ease-in;
+}
+  
+.box-text {
+    pointer-events: none;
+    position: absolute;
+    top: 22%;
+    left: 11%;
+}
+  
+.box-big1 {
+    font-weight: 700;
+    margin-top: 60px;
+    font-family: sans-serif;
+    font-size: 85px;
+}
+.box-big2 {
+    font-size: 85px;
+    color: #6b92fb;
+    font-weight: 700;
+    margin-top: 12px;
+    font-family: sans-serif;
+}
+.box-para {
+    font-weight: 700;
+    width: 960px;
+    font-size: 32px;
+    line-height: 44px;
+    color: #494b57;
+    font-family: sans-serif;
+    margin-top: 8%;
+}
