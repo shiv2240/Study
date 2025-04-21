@@ -148,6 +148,4 @@ Visit: `http://localhost:2030`
 
 ---
 
-## 📬 Need Frontend?
-Let me know if you want a simple React frontend for testing the password reset flow!
 
