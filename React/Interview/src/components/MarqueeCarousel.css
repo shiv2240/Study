@@ -1,0 +1,32 @@
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    border: 2px solid #ccc;
+    background: #f9f9f9;
+  }
+  
+  .marquee-track {
+    display: inline-block;
+    animation: scroll 15s linear infinite;
+  }
+  
+  .marquee-item {
+    display: inline-block;
+    margin-right: 30px;
+    padding: 10px 20px;
+    background-color: #ff7a00;
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  
+  @keyframes scroll {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
