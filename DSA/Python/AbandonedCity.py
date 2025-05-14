@@ -1,14 +1,21 @@
-# Subarrays Having Sum Less Than M
+# Abandoned City
 
 def check(n,k,arr):
-  c,i,res=0,0,0
+  res=0
+  mini = float('inf')
+  i=0
   for j in range(n):
     res+=arr[j]
-    while res>=k and i<=j:
+    while res>=k:
+      mini= min(mini, j-i+1)
       res-=arr[i]
       i+=1
-    c+=(j-i+1)
-  print(c)
+  if mini == float("inf"):
+    print(-1)
+  else:
+    print(mini)
+    
+
 
 t=int(input())
 for i in range(t):
