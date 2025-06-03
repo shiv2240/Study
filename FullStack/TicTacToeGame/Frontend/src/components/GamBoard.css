@@ -1,0 +1,84 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: black;
+}
+
+.primary-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.primary-button:hover {
+  background-color: #45a049;
+}
+
+.game-info {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.player-label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.player-label.your-turn {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.timer {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.current-player {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 8px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.cell.clickable {
+  cursor: pointer;
+  background-color: #e0f7fa;
+}
+
+.cell.clickable:hover {
+  background-color: #b2ebf2;
+}
+
+.winner-banner {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff5722;
+}
