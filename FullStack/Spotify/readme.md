@@ -19,10 +19,10 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 
 ## 2. 👥 User Roles and Permissions
 
-| Role    | Capabilities                                                                            |
-| ------- | --------------------------------------------------------------------------------------- |
-| Creator | Upload songs, View their own songs, Stream own songs, Edit song metadata, Create albums |
-| User    | Browse all songs, Stream any song, Like songs, Create and manage playlists              |
+| Role    | Capabilities                                                                                                   |
+| ------- | -------------------------------------------------------------------------------------------------------------- |
+| Creator | Upload songs, View their own songs, Stream own songs, Edit song metadata, Create albums, Edit profile with bio |
+| User    | Browse all songs, Stream any song, Like songs, Create and manage playlists, Edit profile                       |
 
 ---
 
@@ -48,6 +48,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
   email: String,
   password: String,
   role: { type: String, enum: ["creator", "user"] },
+  bio: String, // only for creators, optional for users
   likedSongs: [ObjectId], // Song references
   playlists: [ObjectId]    // Playlist references
 }
@@ -126,6 +127,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
   * Upload a New Song
   * View My Songs
   * Create Album
+  * Edit Profile
 
 ### 4. 🎵 Upload Song
 
@@ -164,7 +166,14 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 * List of uploaded songs is shown
 * Each has Play button → streams audio using GridFS
 
-### 9. 📊 Analytics (Future Enhancement)
+### 9. 📝 Edit Profile (New Feature)
+
+* Creator clicks on “Edit Profile”
+* Form with current details appears: Name, Email, Bio
+* Creator can update any field → submits
+* Backend validates and saves changes in user document
+
+### 10. 📊 Analytics (Future Enhancement)
 
 * View most played songs
 * Plays by location (state, city, country)
@@ -194,6 +203,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
   * Browse All Songs
   * Liked Songs
   * My Playlists
+  * Edit Profile
 
 ### 4. 🔍 Search Songs
 
@@ -244,7 +254,14 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 * Expand playlist → view songs
 * Can play, remove, reorder songs
 
-### 11. 📊 Analytics (Future Enhancement)
+### 11. 📝 Edit Profile (New Feature)
+
+* User clicks “Edit Profile”
+* Form with current info appears: Name, Email
+* User can update info → clicks Submit
+* Backend updates data in `users` collection
+
+### 12. 📊 Analytics (Future Enhancement)
 
 * Track time spent in app
 * Song play history (weekly/monthly/yearly)
@@ -294,6 +311,10 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 * `POST /api/albums` (creator only)
 * `POST /api/albums/:albumId/add/:songId` (creator only)
 
+### Profile
+
+* `PATCH /api/users/edit-profile` (authenticated user/creator)
+
 ---
 
 ## 10. 🧩 Frontend Data Flow
@@ -306,6 +327,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
   * Like button: toggles API call
   * Playlist UI: form to create + select song to add/remove
   * Album management: create albums and assign songs
+  * Profile edit: pre-fill form → on submit → PATCH API
 
 ---
 
