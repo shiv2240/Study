@@ -1,4 +1,4 @@
-# 🎵 Spotify-Type Audio Platform - Documentation
+# 🎧 Spotify-Type Audio Platform - Documentation
 
 ## 1. 📘 System Overview
 
@@ -19,10 +19,10 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 
 ## 2. 👥 User Roles and Permissions
 
-| Role    | Capabilities                                                               |
-| ------- | -------------------------------------------------------------------------- |
-| Creator | Upload songs, View their own songs, Stream own songs                       |
-| User    | Browse all songs, Stream any song, Like songs, Create and manage playlists |
+| Role    | Capabilities                                                                            |
+| ------- | --------------------------------------------------------------------------------------- |
+| Creator | Upload songs, View their own songs, Stream own songs, Edit song metadata, Create albums |
+| User    | Browse all songs, Stream any song, Like songs, Create and manage playlists              |
 
 ---
 
@@ -61,7 +61,9 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
   artist: String,
   filename: String, // stored in GridFS
   uploader: ObjectId, // references User
-  uploadDate: Date
+  uploadDate: Date,
+  album: ObjectId, // optional, references Album
+  isPublic: Boolean
 }
 ```
 
@@ -75,9 +77,21 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 }
 ```
 
+### Album Schema
+
+```js
+{
+  title: String,
+  description: String,
+  creator: ObjectId, // references User
+  songs: [ObjectId], // Song references
+  createdAt: Date
+}
+```
+
 ---
 
-## 5. 💂 File Upload & Storage with GridFS
+## 5. 🗂 File Upload & Storage with GridFS
 
 * **Why GridFS**: To store audio files larger than MongoDB's 16MB limit.
 * **How it works**:
@@ -88,7 +102,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 
 ---
 
-## 6. 🎤 Creator Portal - Detailed User Flow
+## 6. 🎤 Creator Portal - Detailed Flow
 
 ### 1. ✅ Registration as Creator
 
@@ -111,11 +125,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 
   * Upload a New Song
   * View My Songs
-
-    * View a specific song (via ID/Title, Artist)
-    * Play song
-    * View upload date, play count, tags (public/private)
-    * Option to deactivate or remove
+  * Create Album
 
 ### 4. 🎵 Upload Song
 
@@ -129,14 +139,32 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
   * Stores metadata in MongoDB
   * Success message shown
 
-### 5. 🎷 Listen to My Songs
+### 5. ✏️ Edit Song Metadata
 
-* Creator goes to My Songs
+* In "My Songs" section, creator selects a song to edit
+* Fields editable: Title, Artist Name, Tags, Visibility
+* Backend updates metadata in MongoDB (PATCH `/api/songs/:id/edit`)
+
+### 6. 📁 Create Album
+
+* Creator clicks on “Create Album”
+* Fills Album Title and Description → Submit
+* Album saved in `albums` collection with creator ID
+
+### 7. ➕ Add Songs to Album
+
+* Creator views uploaded songs
+* Selects one or more songs → Adds to selected album
+* Backend updates song documents with album reference
+
+### 8. 🎷 Listen to My Songs
+
+* Creator goes to “My Songs”
 * Backend filters songs by uploader ID
 * List of uploaded songs is shown
 * Each has Play button → streams audio using GridFS
 
-### 6. 📊 Analytics (future enhancement)
+### 9. 📊 Analytics (Future Enhancement)
 
 * View most played songs
 * Plays by location (state, city, country)
@@ -144,7 +172,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 
 ---
 
-## 7. 🎵 User Portal - Detailed User Flow
+## 7. 🎧 User Portal - Detailed Flow
 
 ### 1. ✅ Registration as User
 
@@ -216,7 +244,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 * Expand playlist → view songs
 * Can play, remove, reorder songs
 
-### 11. 📊 Analytics (future enhancement)
+### 11. 📊 Analytics (Future Enhancement)
 
 * Track time spent in app
 * Song play history (weekly/monthly/yearly)
@@ -224,24 +252,23 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 
 ---
 
-## 8. 🔄 Common Actions
+## 8. 💽 Playlist & Favorites Management
 
-### 🔁 Logout
+### Likes
 
-* Click “Logout”
-* Token is removed from localStorage
-* Redirect to login page
+* Stored in `user.likedSongs` array
+* Like: Add song ID to this array
+* Unlike: Remove it
 
-### 🛡️ Backend Middleware
+### Playlist
 
-* All routes pass through JWT middleware
-* Role-based checks (creator or user)
-* Multer validates audio file type & size
-* GridFS handles storage & retrieval
+* Create: `POST /api/playlists` with name
+* Add song: `POST /api/playlists/:playlistId/add/:songId`
+* Remove song: `DELETE /api/playlists/:playlistId/remove/:songId`
 
 ---
 
-## 9. 🔗 API Routes
+## 9. 🔌 API Routes
 
 ### Auth
 
@@ -254,6 +281,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 * `GET /api/songs/all`
 * `GET /api/songs/stream/:filename`
 * `POST /api/songs/:id/like` (user only)
+* `PATCH /api/songs/:id/edit` (creator only)
 
 ### Playlists
 
@@ -261,9 +289,14 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 * `POST /api/playlists/:playlistId/add/:songId`
 * `DELETE /api/playlists/:playlistId/remove/:songId`
 
+### Albums
+
+* `POST /api/albums` (creator only)
+* `POST /api/albums/:albumId/add/:songId` (creator only)
+
 ---
 
-## 10. 🧹 Frontend Data Flow
+## 10. 🧩 Frontend Data Flow
 
 * On login → JWT stored and user info saved in state/context
 * On dashboard:
@@ -272,6 +305,7 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
   * Stream: send fetch to `GET /stream/:filename`
   * Like button: toggles API call
   * Playlist UI: form to create + select song to add/remove
+  * Album management: create albums and assign songs
 
 ---
 
@@ -294,20 +328,33 @@ This project is a full-stack audio streaming platform inspired by Spotify. It in
 
 ---
 
-## 13. Dependencies
+## 13. 📦 Dependencies
 
-* "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.17.0",
-    "mongoose": "^8.15.1",
-    "multer": "^2.0.1",
-    "nodemon": "^3.1.10"
-  },
+```json
+"dependencies": {
+  "bcryptjs": "^3.0.2",
+  "dotenv": "^16.5.0",
+  "express": "^5.1.0",
+  "jsonwebtoken": "^9.0.2",
+  "mongodb": "^6.17.0",
+  "mongoose": "^8.15.1",
+  "multer": "^2.0.1",
+  "nodemon": "^3.1.10"
+}
+```
 
-## 13. Optional
+---
 
-* Reset Password
-* Dependencies would be nodemailer and cron
+## 14. 🛠 Optional Features
+
+* **Reset Password Flow**
+
+  * User requests reset → sends email via `nodemailer`
+  * Tokenized link expires in X minutes
+  * User clicks → resets password → confirmation
+  * Scheduled cleanup using `cron`
+
+**Dependencies**:
+
+* `nodemailer`
+* `cron`
