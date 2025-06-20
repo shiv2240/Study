@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Geolocation Test</title>
+</head>
+<body>
+  <h1>Check Console for Location</h1>
+
+  <script>
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        console.log('Latitude:', latitude);
+        console.log('Longitude:', longitude);
+      },
+      (error) => {
+        console.error('Error getting location:', error.message);
+      }
+    );
+  </script>
+</body>
+</html>
